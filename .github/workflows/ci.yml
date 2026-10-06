@@ -18,7 +18,9 @@ jobs:
 
       - name: Build Lab3 C code
         working-directory: Lab3
-        run: make
+        run: |
+          make clean
+          make
 
       - name: Run Lab3 program
         working-directory: Lab3
@@ -28,8 +30,11 @@ jobs:
         working-directory: Lab3
         run: |
           OUTPUT=$(./fibonacci)
-
           echo "$OUTPUT"
 
           echo "$OUTPUT" | grep -q "55"
           echo "$OUTPUT" | grep -q "1.618034"
+
+      - name: Run unit tests
+        working-directory: Lab3
+        run: make test
