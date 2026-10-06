@@ -1,0 +1,35 @@
+name: Lab4 CI
+
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Build Lab3 C code
+        working-directory: Lab3
+        run: make
+
+      - name: Run Lab3 program
+        working-directory: Lab3
+        run: ./fibonacci
+
+      - name: Verify output
+        working-directory: Lab3
+        run: |
+          OUTPUT=$(./fibonacci)
+
+          echo "$OUTPUT"
+
+          echo "$OUTPUT" | grep -q "55"
+          echo "$OUTPUT" | grep -q "1.618034"
