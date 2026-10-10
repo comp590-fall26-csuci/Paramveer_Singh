@@ -1,4 +1,4 @@
-name: Lab4 CI
+name: Lab5 CI
 
 on:
   push:
@@ -33,3 +33,18 @@ jobs:
 
           echo "$OUTPUT" | grep -q "55"
           echo "$OUTPUT" | grep -q "1.618034"
+
+  semgrep:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Semgrep Community Edition
+        run: python3 -m pip install semgrep
+
+      - name: Run Semgrep scan
+        run: semgrep --config=auto .
