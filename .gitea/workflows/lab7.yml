@@ -1,0 +1,38 @@
+
+name: Lab7 Gitea CI
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: debian-host
+
+    steps:
+      - name: Clone repository and initialize Lab3 submodule
+        run: |
+          git clone --branch Lab7 \
+            http://127.0.0.1:3000/paramveer/Paramveer_Singh.git source
+          cd source
+          git submodule update --init Lab3/590MakefileLab
+
+      - name: Compile Lab3 C program
+        run: |
+          cd source/Lab3
+          make clean
+          make
+
+      - name: Run Fibonacci program
+        run: |
+          cd source/Lab3
+          ./fibonacci
+
+      - name: Verify program output
+        run: |
+          cd source/Lab3
+          OUTPUT=$(./fibonacci)
+          echo "$OUTPUT"
+          echo "$OUTPUT" | grep -q "55"
+          echo "$OUTPUT" | grep -q "1.618034"
+          echo "Lab7 Gitea CI passed!"
