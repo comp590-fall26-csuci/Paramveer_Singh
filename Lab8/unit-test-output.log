@@ -1,0 +1,6 @@
+PASS: fibonacci(0) = 0
+PASS: fibonacci(1) = 1
+PASS: fibonacci(5) = 5
+PASS: fibonacci(10) = 55
+PASS: golden_ratio_approx(10) = 1.618034
+All 5 unit tests passed.
